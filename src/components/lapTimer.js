@@ -1,21 +1,19 @@
 import React, {Component} from "react";
 
-class FormatTime extends Component {
+class Laptimer extends Component {
     constructor(props){
         super(props);
+        console.log(props);
+        const {elapsed} = props;
+        const sec = elapsed/1000;
+        const min = sec/60;
         this.state = {
-            hour : 0,
-            min : 0,
-            sec : 0,
-            ms : 0
+            hour : Math.floor(min / 60),
+            min : Math.floor(min % 60),
+            sec : Math.floor(sec % 60),
+            ms : Math.floor(elapsed % 100)
         };
-        this.timerStyle = {
-            display: "inline-block",
-            position: "relative",
-            left: "50%",
-            transform: "translate(-50%)",
-            width: "383px"
-        };
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,8 +49,8 @@ class FormatTime extends Component {
 
     render(){
         const {hour, min, sec, ms} = this.state;
-        return <div style={this.timerStyle}>{this.leadingZero(hour)}:{this.leadingZero(min)}:{this.leadingZero(sec)}.{this.trailingZero(ms)}</div>
+        return <span className="lead text-center">{this.leadingZero(hour)}:{this.leadingZero(min)}:{this.leadingZero(sec)}.{this.trailingZero(ms)}</span>
     }
 }
 
-export default FormatTime;
+export default Laptimer;
